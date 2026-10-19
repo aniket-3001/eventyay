@@ -44,12 +44,11 @@ def test_send_adds_note_to_empty_comment(event, user):
     with scopes_disabled():
         voucher = Voucher.objects.create(event=event)
     _send(event, user, voucher)
-    assert 'guest@example.org' in voucher.comment
+    assert voucher.comment == 'The voucher has been sent to guest@example.org.'
 
 
 def test_send_keeps_existing_comment(event, user):
     with scopes_disabled():
         voucher = Voucher.objects.create(event=event, comment='Reserved for speakers')
     _send(event, user, voucher)
-    assert 'Reserved for speakers' in voucher.comment
-    assert 'guest@example.org' in voucher.comment
+    assert voucher.comment == 'Reserved for speakers\n\nThe voucher has been sent to guest@example.org.'
