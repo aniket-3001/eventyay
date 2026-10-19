@@ -42,7 +42,7 @@ def vouchers_send(
                     v.tag = r.get('tag')
                 if v.comment:
                     v.comment += '\n\n'
-                v.comment = gettext('The voucher has been sent to {recipient}.').format(recipient=r['email'])
+                v.comment += gettext('The voucher has been sent to {recipient}.').format(recipient=r['email'])
                 logs.append(
                     v.log_action(
                         'eventyay.voucher.sent',
